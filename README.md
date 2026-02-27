@@ -14,14 +14,14 @@ The repository will be updated weekly with new tasks and learning progress.
 - Built a simple profile card UI using `StatelessWidget`
 - Displayed personal information such as name, student ID, and course
 - Used `Container`, `Column`, and `Row` widgets for layout
-- Added icons and styling for better UI presentation :contentReference[oaicite:0]{index=0}
+- Added icons and styling for better UI presentation 
 
 ### App Task 2 – Click Counter Game
 - Implemented a simple interactive game using `StatefulWidget`
 - Displayed a score starting from 0
 - Added a **"Click Me"** button to increase the score
 - Added a **Reset** button to reset the score
-- Used `setState()` to update the UI dynamically :contentReference[oaicite:1]{index=1}
+- Used `setState()` to update the UI dynamically 
 
 ---
 
@@ -32,7 +32,7 @@ The repository will be updated weekly with new tasks and learning progress.
 - Displayed one quote on the screen at a time
 - Added a **Next Quote** button to show a new quote
 - Implemented looping logic to restart quotes after the last one
-- Used `StatefulWidget` with list management :contentReference[oaicite:2]{index=2}
+- Used `StatefulWidget` with list management
 
 ---
 
@@ -46,7 +46,7 @@ The repository will be updated weekly with new tasks and learning progress.
 - Added a **FloatingActionButton** to add new contacts
 - Implemented navigation between screens using `Navigator.push`
 - Used `AlertDialog` to show contact details
-- Displayed success messages using `SnackBar` :contentReference[oaicite:3]{index=3}
+- Displayed success messages using `SnackBar` 
 
 ---
 
@@ -57,7 +57,7 @@ The repository will be updated weekly with new tasks and learning progress.
 - Displayed colored containers representing images
 - Used `Stack` widget to overlay text on images
 - Implemented `BottomSheet` options (View, Share, Delete)
-- Added navigation to a full-screen photo view page :contentReference[oaicite:4]{index=4}
+- Added navigation to a full-screen photo view page 
 
 ---
 
