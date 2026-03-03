@@ -6,7 +6,7 @@ The repository will be updated weekly with new tasks and learning progress.
 
 ---
 
-## Week 1 (Phase 1: Learning Flutter)
+## Week  (Phase 1: Learning Flutter)
 
 **14-Feb-2026**
 
@@ -36,7 +36,7 @@ The repository will be updated weekly with new tasks and learning progress.
 
 ---
 
-## Week 2 (Phase 2: Front-End Flutter)
+## Week  (Phase 2: Front-End Flutter)
 
 **21-Feb-2026**
 
@@ -60,5 +60,22 @@ The repository will be updated weekly with new tasks and learning progress.
 - Added navigation to a full-screen photo view page 
 
 ---
+---
+
+
+**28-Feb-2026**
+
+### App Task 6 – Decision Maker App (Creative Choice)
+
+- Developed an interactive **Decision Maker Wheel** application.
+- Implemented a spinning wheel using the `flutter_fortune_wheel` package.
+- Allowed users to dynamically add custom decision options.
+- Used `TextEditingController` for handling real-time user input.
+- Implemented randomized selection logic for unbiased decision-making.
+- Displayed the selected result dynamically after wheel rotation.
+- Managed application state using `StatefulWidget`.
+- Practiced animation integration and user interaction handling.
+
+
 
 *This repository will continue to be updated with weekly tasks throughout the internship.*
