@@ -65,7 +65,7 @@ The repository will be updated weekly with new tasks and learning progress.
 
 **28-Feb-2026**
 
-### App Task 6 – Decision Maker App (Creative Choice)
+### App Task (your choice app) – Decision Maker App (Creative Choice)
 
 - Developed an interactive **Decision Maker Wheel** application.
 - Implemented a spinning wheel using the `flutter_fortune_wheel` package.
