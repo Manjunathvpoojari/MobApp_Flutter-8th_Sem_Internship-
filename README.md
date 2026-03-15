@@ -76,6 +76,69 @@ The repository will be updated weekly with new tasks and learning progress.
 - Managed application state using `StatefulWidget`.
 - Practiced animation integration and user interaction handling.
 
+---
+
+## Week (Phase 3: Firebase Integration and CRUD Operation)
+  
+  **14-03-2026**
+
+## App Task 6 - Employee Management Page (on existing login page)
+
+- This is primarily an assignment task on existing login page app which is in different repo 
+- I am just showing my work in this assignments as weekend work task assigned by our mentors
+
+## Tasks Implemented
+
+### Task 1 – Employee Model
+Created an `Employee` class with fields:
+- id
+- name
+- age
+- department
+- salary
+- email  
+
+Includes:
+- `toMap()` to store data in Firestore  
+- `fromFirestore()` to convert Firestore data to an Employee object
+
+### Task 2 – EmployeeService
+Service class for Firestore operations:
+- `getEmployees()` – Fetch employees ordered by name  
+- `addEmployee()` – Add new employee  
+- `updateEmployee()` – Update existing employee  
+- `deleteEmployee()` – Delete employee by ID  
+
+### Task 3 – CRUD UI
+Main page displays employees in cards showing:
+- Name
+- Email
+- Department
+- Salary
+- Age  
+
+Includes:
+- Floating button to add employee
+- Edit option with pre-filled form
+- Delete option with confirmation dialog
+- Form validation for required fields
+
+### Task 4 – Search Feature
+Search bar in the AppBar that:
+- Toggles between title and search field
+- Searches by name or email
+- Shows result count or "No results found"
+
+### Task 5 – Department Filter
+Filter chips:
+`All | HR | IT | Finance | Marketing`
+
+- Filters employees by department
+- Uses Firestore `.where()` query
+
+### Bonus
+Salary summary bar showing: 
+
 
 
 *This repository will continue to be updated with weekly tasks throughout the internship.*
