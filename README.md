@@ -147,14 +147,14 @@ Salary summary bar showing:
 
 ## App Task 7 - Shop Product Page – Flutter & Supabase
 
-## 📌 Overview
+## Overview
 This project is a **Shop Product Management Page** built using **Flutter** and **Supabase Storage**.  
 It allows a shop owner (Ravi related scenario, problem statement) to upload and manage product-related files such as images, PDFs, and videos.
 
 
-## 🚀 Features
+## Features
 
-### 📸 Product Image Upload
+### Product Image Upload
 - Upload image from **Camera or Gallery**
 - Stored in: `products/images/`
 - Displays:
@@ -162,7 +162,7 @@ It allows a shop owner (Ravi related scenario, problem statement) to upload and 
   - File name
   - File size
 
-### 📄 Price List PDF Upload
+### Price List PDF Upload
 - Upload PDF using file picker
 - Stored in: `products/pdfs/`
 - Displays:
@@ -171,7 +171,7 @@ It allows a shop owner (Ravi related scenario, problem statement) to upload and 
   - File size
 - Opens externally using `url_launcher`
 
-### 🎥 Product Video Upload
+### Product Video Upload
 - Upload video files
 - Stored in: `products/videos/`
 - Displays:
@@ -180,10 +180,10 @@ It allows a shop owner (Ravi related scenario, problem statement) to upload and 
   - File size
 - Opens externally
 
-> ⚠️ Note: Video uses `withData: false` to avoid loading large files into memory.
+> Note: Video uses `withData: false` to avoid loading large files into memory.
 
 
-## 📂 File Management
+## File Management
 - Fetch all files using `Future.wait()`
 - Display all files in a **ListView**
 - Show:
@@ -193,7 +193,7 @@ It allows a shop owner (Ravi related scenario, problem statement) to upload and 
 - Display total file count:
 
 
-## 🗑️ Delete Feature
+## Delete Feature
 - Each file has a delete icon
 - Confirmation dialog before deletion
 - Deletes file from Supabase
@@ -201,13 +201,13 @@ It allows a shop owner (Ravi related scenario, problem statement) to upload and 
 - Shows SnackBar confirmation
 
 
-## ⭐ Bonus Features
+## Bonus Features
 - Upload loading indicator (`Uploading...`)
 - Upload date display
 - Total storage usage summary
 
 
-## 🛠️ Technologies Used
+## Technologies Used
 - Flutter
 - Supabase Storage
 - image_picker
