@@ -139,6 +139,82 @@ Filter chips:
 ### Bonus
 Salary summary bar showing: 
 
+---
+
+## Week (Final Phase : Supabase Integration and CRUD Operation)
+  
+  **02-04-2026**
+
+## App Task 7 - Shop Product Page – Flutter & Supabase
+
+## 📌 Overview
+This project is a **Shop Product Management Page** built using **Flutter** and **Supabase Storage**.  
+It allows a shop owner (Ravi related scenario, problem statement) to upload and manage product-related files such as images, PDFs, and videos.
+
+
+## 🚀 Features
+
+### 📸 Product Image Upload
+- Upload image from **Camera or Gallery**
+- Stored in: `products/images/`
+- Displays:
+  - Image preview
+  - File name
+  - File size
+
+### 📄 Price List PDF Upload
+- Upload PDF using file picker
+- Stored in: `products/pdfs/`
+- Displays:
+  - PDF icon
+  - File name
+  - File size
+- Opens externally using `url_launcher`
+
+### 🎥 Product Video Upload
+- Upload video files
+- Stored in: `products/videos/`
+- Displays:
+  - Video icon
+  - File name
+  - File size
+- Opens externally
+
+> ⚠️ Note: Video uses `withData: false` to avoid loading large files into memory.
+
+
+## 📂 File Management
+- Fetch all files using `Future.wait()`
+- Display all files in a **ListView**
+- Show:
+  - File type icon (image/pdf/video)
+  - File name
+  - File size
+- Display total file count:
+
+
+## 🗑️ Delete Feature
+- Each file has a delete icon
+- Confirmation dialog before deletion
+- Deletes file from Supabase
+- Updates UI instantly
+- Shows SnackBar confirmation
+
+
+## ⭐ Bonus Features
+- Upload loading indicator (`Uploading...`)
+- Upload date display
+- Total storage usage summary
+
+
+## 🛠️ Technologies Used
+- Flutter
+- Supabase Storage
+- image_picker
+- file_picker
+- cached_network_image
+- url_launcher
+
 
 
 *This repository will continue to be updated with weekly tasks throughout the internship.*
