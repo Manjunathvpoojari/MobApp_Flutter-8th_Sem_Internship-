@@ -1,4 +1,6 @@
 import 'dart:io';
+// ignore: unused_import
+import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:file_picker/file_picker.dart';
@@ -6,8 +8,8 @@ import 'package:url_launcher/url_launcher.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
-import 'product_storage_service.dart';
 import 'product_model.dart';
+import 'product_storage_service.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -38,35 +40,145 @@ class ProductPage extends StatefulWidget {
 }
 
 class _ProductPageState extends State<ProductPage> {
-  final service = ProductStorageService();
-  final List<ProductFile> files = [];
-
-  // IMAGE
-  Future<void> pickImage() async {
-    final picked = await ImagePicker().pickImage(source: ImageSource.gallery);
-
-    if (picked != null) {
-      final bytes = await picked.readAsBytes();
-      final path = "products/images/${picked.name}";
-
-      await service.uploadImage(path, bytes);
-
-      setState(() {
-        files.add(
-          ProductFile(
-            name: picked.name,
-            path: path,
-            type: "image",
-            size: bytes.length,
-            url: service.getPublicUrl(path),
-            uploadedAt: DateTime.now(),
-          ),
-        );
-      });
+  String formatSize(int bytes) {
+    if (bytes >= 1024 * 1024) {
+      return "${(bytes / (1024 * 1024)).toStringAsFixed(1)} MB";
+    } else if (bytes >= 1024) {
+      return "${(bytes / 1024).toStringAsFixed(1)} KB";
+    } else {
+      return "$bytes B";
     }
   }
 
-  // PDF
+  void showUploadOptions() {
+    showModalBottomSheet(
+      context: context,
+      builder: (_) => Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          ListTile(
+            leading: const Icon(Icons.photo_camera),
+            title: const Text("Add Product Photo"),
+            onTap: () {
+              Navigator.pop(context);
+              pickImage();
+            },
+          ),
+          ListTile(
+            leading: const Icon(Icons.picture_as_pdf, color: Colors.orange),
+            title: const Text("Upload Price List"),
+            onTap: () {
+              Navigator.pop(context);
+              uploadPdf();
+            },
+          ),
+          ListTile(
+            leading: const Icon(Icons.video_file, color: Colors.green),
+            title: const Text("Add Product Video"),
+            onTap: () {
+              Navigator.pop(context);
+              uploadVideo();
+            },
+          ),
+        ],
+      ),
+    );
+  }
+
+  final service = ProductStorageService();
+  List<ProductFile> files = [];
+  bool loading = false;
+
+  @override
+  void initState() {
+    super.initState();
+    fetchFiles();
+  }
+
+  // ================= FETCH =================
+  Future<void> fetchFiles() async {
+    final results = await Future.wait([
+      service.list('products/images'),
+      service.list('products/pdfs'),
+      service.list('products/videos'),
+    ]);
+
+    List<ProductFile> temp = [];
+
+    for (var list in results) {
+      for (var file in list) {
+        final path = file.name;
+
+        temp.add(
+          ProductFile(
+            name: file.name,
+            storagePath: path,
+            type: file.name.split('.').last,
+            size: file.metadata?['size'] ?? 0,
+            url: service.getUrl(path),
+          ),
+        );
+      }
+    }
+
+    setState(() => files = temp);
+  }
+
+  // ================= IMAGE =================
+  void pickImage() {
+    showModalBottomSheet(
+      context: context,
+      builder: (_) => Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          ListTile(
+            title: const Text("Camera"),
+            onTap: () async {
+              Navigator.pop(context);
+              final img = await ImagePicker().pickImage(
+                source: ImageSource.camera,
+              );
+              if (img != null) uploadImage(img);
+            },
+          ),
+          ListTile(
+            title: const Text("Gallery"),
+            onTap: () async {
+              Navigator.pop(context);
+              final img = await ImagePicker().pickImage(
+                source: ImageSource.gallery,
+              );
+              if (img != null) uploadImage(img);
+            },
+          ),
+        ],
+      ),
+    );
+  }
+
+  Future<void> uploadImage(XFile file) async {
+    setState(() => loading = true);
+
+    final bytes = await file.readAsBytes();
+    final path = "products/images/${file.name}";
+
+    final storagePath = await service.uploadImage(path, bytes);
+
+    setState(() {
+      files.add(
+        ProductFile(
+          name: file.name,
+          storagePath: storagePath,
+          type: "image",
+          size: bytes.length,
+          url: service.getUrl(storagePath),
+        ),
+      );
+      loading = false;
+    });
+  }
+
+  // ================= PDF =================
   Future<void> uploadPdf() async {
     final result = await FilePicker.platform.pickFiles(
       type: FileType.custom,
@@ -78,24 +190,23 @@ class _ProductPageState extends State<ProductPage> {
       final file = result.files.first;
 
       final path = "products/pdfs/${file.name}";
-      await service.uploadPdf(path, file.bytes!);
+      final storagePath = await service.uploadPdf(path, file.bytes!);
 
       setState(() {
         files.add(
           ProductFile(
             name: file.name,
-            path: path,
+            storagePath: storagePath,
             type: "pdf",
             size: file.size,
-            url: service.getPublicUrl(path),
-            uploadedAt: DateTime.now(),
+            url: service.getUrl(storagePath),
           ),
         );
       });
     }
   }
 
-  // VIDEO
+  // ================= VIDEO =================
   Future<void> uploadVideo() async {
     final result = await FilePicker.platform.pickFiles(
       type: FileType.video,
@@ -106,71 +217,140 @@ class _ProductPageState extends State<ProductPage> {
       final file = result.files.first;
 
       final path = "products/videos/${file.name}";
-      await service.uploadVideo(path, File(file.path!));
+      final storagePath = await service.uploadVideo(path, File(file.path!));
 
       setState(() {
         files.add(
           ProductFile(
             name: file.name,
-            path: path,
+            storagePath: storagePath,
             type: "video",
             size: file.size,
-            url: service.getPublicUrl(path),
-            uploadedAt: DateTime.now(),
+            url: service.getUrl(storagePath),
           ),
         );
       });
     }
   }
 
-  // DELETE
+  // ================= DELETE =================
   Future<void> deleteFile(ProductFile file) async {
-    await service.deleteFile(file.path);
-    setState(() => files.remove(file));
+    final confirm = await showDialog(
+      context: context,
+      builder: (_) => AlertDialog(
+        title: const Text("Delete"),
+        content: const Text("Remove this file from the shop?"),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context, false),
+            child: const Text("No"),
+          ),
+          TextButton(
+            onPressed: () => Navigator.pop(context, true),
+            child: const Text("Yes"),
+          ),
+        ],
+      ),
+    );
+
+    if (confirm == true) {
+      await service.delete(file.storagePath);
+      setState(() => files.remove(file));
+
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(const SnackBar(content: Text("File removed from shop")));
+    }
   }
 
+  // ================= UI =================
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text("Shop Page")),
+      appBar: AppBar(title: const Text("Shop Product Page")),
       body: Column(
         children: [
-          Text("Total Files: ${files.length}"),
+          Text("Ravi has uploaded ${files.length} files"),
+
+          if (loading) const Text("Uploading..."),
 
           Expanded(
-            child: ListView.builder(
-              itemCount: files.length,
-              itemBuilder: (_, i) {
-                final f = files[i];
+            child: files.isEmpty
+                ? const Center(
+                    child: Text(
+                      "No products uploaded yet. Tap a button to add files.",
+                    ),
+                  )
+                : ListView.builder(
+                    itemCount: files.length,
+                    itemBuilder: (_, i) {
+                      final f = files[i];
 
-                return ListTile(
-                  leading: f.type == "image"
-                      ? CachedNetworkImage(imageUrl: f.url)
-                      : const Icon(Icons.insert_drive_file),
-                  title: Text(f.name),
-                  subtitle: Text("${f.size} bytes"),
-                  onTap: () => launchUrl(Uri.parse(f.url)),
-                  trailing: IconButton(
-                    icon: const Icon(Icons.delete),
-                    onPressed: () => deleteFile(f),
+                      return Card(
+                        child: ListTile(
+                          leading: f.type == "image"
+                              ? CachedNetworkImage(
+                                  imageUrl: f.url,
+                                  width: 50,
+                                  height: 50,
+                                  fit: BoxFit.cover,
+                                )
+                              : Icon(
+                                  f.type == "pdf"
+                                      ? Icons.picture_as_pdf
+                                      : Icons.video_file,
+                                  color: f.type == "pdf"
+                                      ? Colors.orange
+                                      : Colors.green,
+                                ),
+                          title: Text(
+                            f.name,
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                          subtitle: Row(
+                            children: [
+                              Container(
+                                padding: const EdgeInsets.symmetric(
+                                  horizontal: 8,
+                                  vertical: 4,
+                                ),
+                                decoration: BoxDecoration(
+                                  color: Colors.grey.shade200,
+                                  borderRadius: BorderRadius.circular(8),
+                                ),
+                                child: Text(
+                                  formatSize(f.size),
+                                  style: const TextStyle(fontSize: 12),
+                                ),
+                              ),
+                            ],
+                          ),
+                          onTap: () => launchUrl(Uri.parse(f.url)),
+                          trailing: IconButton(
+                            icon: const Icon(Icons.delete),
+                            onPressed: () => deleteFile(f),
+                          ),
+                        ),
+                      );
+                    },
                   ),
-                );
-              },
-            ),
-          ),
-
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              ElevatedButton(onPressed: pickImage, child: const Text("Image")),
-              ElevatedButton(onPressed: uploadPdf, child: const Text("PDF")),
-              ElevatedButton(
-                onPressed: uploadVideo,
-                child: const Text("Video"),
-              ),
-            ],
           ),
         ],
+      ),
+      bottomNavigationBar: Padding(
+        padding: const EdgeInsets.all(12),
+        child: ElevatedButton.icon(
+          onPressed: showUploadOptions,
+          icon: const Icon(Icons.upload),
+          label: const Text("Upload"),
+          style: ElevatedButton.styleFrom(
+            padding: const EdgeInsets.symmetric(vertical: 15),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(12),
+            ),
+          ),
+        ),
       ),
     );
   }

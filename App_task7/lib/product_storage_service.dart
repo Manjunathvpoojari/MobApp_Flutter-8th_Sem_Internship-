@@ -1,5 +1,5 @@
 import 'dart:io';
-import 'dart:typed_data'; // ✅ ADD THIS
+import 'dart:typed_data';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 class ProductStorageService {
@@ -14,19 +14,19 @@ class ProductStorageService {
   }
 
   Future<String> uploadVideo(String path, File file) async {
-    // IMPORTANT: video is large → don't load into memory
+    // withData: false → video is large, avoids loading into RAM
     return await _bucket.upload(path, file);
   }
 
-  String getPublicUrl(String path) {
+  String getUrl(String path) {
     return _bucket.getPublicUrl(path);
   }
 
-  Future<void> deleteFile(String path) async {
+  Future<void> delete(String path) async {
     await _bucket.remove([path]);
   }
 
-  Future<List<FileObject>> listFiles(String folder) async {
-    return await _bucket.list(path: folder);
+  Future<List<FileObject>> list(String path) async {
+    return await _bucket.list(path: path);
   }
 }
