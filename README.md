@@ -215,6 +215,67 @@ It allows a shop owner (Ravi related scenario, problem statement) to upload and 
 - cached_network_image
 - url_launcher
 
+---
+
+## Week (Oreilly Platform Learning)
+
+05-04-2026
+
+## Oreilly : Task 1 (Dice Game)
+
+### Overview
+Developed a simple Dice Game application using Flutter to understand state management, UI updates, and asset handling.
+
+### Features
+- Dice roll using Random function  
+- Button to trigger roll  
+- Basic animation for rolling effect  
+- Image-based dice using assets  
+
+### Concepts Learned
+- Stateful widgets  
+- setState for UI updates  
+- Timer for repeated actions  
+- Asset management in Flutter  
+
+### Challenges
+- Asset path and pubspec errors  
+- Animation controller initialization  
+- UI not updating properly  
+
+### Conclusion
+This task helped in understanding core Flutter concepts and building an interactive application.
+
+---
+
+## Oreilly : Task 2 (Quiz Game)
+
+### Overview
+Developed a Quiz Game application using Flutter with modular structure. The app includes multiple dart files, a start screen with logo, quiz flow, and result summary.
+
+### Features
+- Start screen with logo and quiz start button  
+- Multiple screens using separate dart files  
+- Questions with multiple options  
+- Options are shuffled for UI display  
+- Score calculation based on correct answers  
+- Final summary showing correct and wrong answers  
+
+### Concepts Learned
+- Modular code structure in Flutter  
+- Navigation between multiple screens  
+- State management across screens  
+- List shuffling and logic handling  
+- UI and logic separation  
+
+### Challenges
+- Managing data across multiple files  
+- Implementing option shuffling without affecting logic  
+- Handling navigation and state updates  
+- Displaying accurate result summary  
+
+### Conclusion
+This task improved understanding of Flutter architecture, navigation, and handling logic with clean UI design.
 
 
 *This repository will continue to be updated with weekly tasks throughout the internship.*
