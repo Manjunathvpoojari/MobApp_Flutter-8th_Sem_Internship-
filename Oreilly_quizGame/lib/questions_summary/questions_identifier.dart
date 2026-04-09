@@ -19,7 +19,6 @@ class QuestionsIdentifier extends StatelessWidget {
       alignment: Alignment.center,
       decoration: BoxDecoration(
         color: isCorrectAnswer ? Colors.green : Colors.red,
-        borderRadius: BorderRadius.circular(100),
         shape: BoxShape.circle,
       ),
       child: Text(

@@ -60,8 +60,6 @@ The repository will be updated weekly with new tasks and learning progress.
 - Added navigation to a full-screen photo view page 
 
 ---
----
-
 
 **28-Feb-2026**
 
@@ -76,6 +74,7 @@ The repository will be updated weekly with new tasks and learning progress.
 - Managed application state using `StatefulWidget`.
 - Practiced animation integration and user interaction handling.
 
+---
 ---
 
 ## Week (Phase 3: Firebase Integration and CRUD Operation)
@@ -139,6 +138,7 @@ Filter chips:
 ### Bonus
 Salary summary bar showing: 
 
+---
 ---
 
 ## Week (Final Phase : Supabase Integration and CRUD Operation)
@@ -216,6 +216,7 @@ It allows a shop owner (Ravi related scenario, problem statement) to upload and 
 - url_launcher
 
 ---
+---
 
 ## Week (Oreilly Platform Learning)
 
@@ -277,5 +278,40 @@ Developed a Quiz Game application using Flutter with modular structure. The app 
 ### Conclusion
 This task improved understanding of Flutter architecture, navigation, and handling logic with clean UI design.
 
+---
+
+# ## Oreilly : Task 3 : (Expense Tracker App)
+
+## Overview
+A Flutter-based mobile application to track daily expenses with category-wise organization and visual insights.
+
+## Features
+- Add, view, and delete expenses  
+- Swipe-to-delete with undo option  
+- Category-based expense tracking  
+- Chart visualization of spending  
+- Light and Dark mode support  
+
+## Tech Stack
+- Flutter (UI Framework)  
+- Dart (Programming Language)  
+- uuid (Unique IDs)  
+- intl (Date formatting)  
+
+## Project Structure
+lib/
+├── models/
+├── widgets/
+│   ├── chart/
+│   └── expenses_list/
+└── main.dart  
+
+## How to Run
+1. Run `flutter pub get`  
+2. Connect a device/emulator  
+3. Run `flutter run`  
+
+## Conclusion
+This project demonstrates Flutter UI design, state management, and building a responsive real-world application.
 
 *This repository will continue to be updated with weekly tasks throughout the internship.*
