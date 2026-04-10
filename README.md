@@ -316,6 +316,48 @@ This project demonstrates Flutter UI design, state management, and building a re
 
 ---
 
+# ## Oreilly : Task 4: (Flutter Internals — Todo App)
+
+## Overview
+A Flutter-based Todo application developed while learning Flutter Internals. The project focuses on understanding widget lifecycle, element tree behavior, and the role of Keys through a practical implementation.
+
+## Features
+- Add todos using a bottom sheet input  
+- Mark tasks as completed with visual feedback  
+- Swipe-to-delete functionality  
+- Sort todos alphabetically (A→Z / Z→A)  
+- Priority-based tagging (Urgent, Normal, Low)  
+- Empty state handling for better UX  
+
+## Tech Stack
+- Flutter (UI Framework)  
+- Dart (Programming Language)  
+- Material 3 (Design system)  
+- StatefulWidget (State management)  
+- Keys (ObjectKey for widget identity)  
+
+## Project Structure
+lib/
+├── models/
+├── screens/
+└── widgets/
+
+## How to Run
+1. Run `flutter pub get`  
+2. Connect a device/emulator  
+3. Run `flutter run`  
+
+## Key Concepts
+- Widget tree vs Element tree understanding  
+- Proper usage of Keys for state consistency  
+- Efficient UI updates using setState  
+- Handling dynamic lists with Dismissible  
+
+## Conclusion
+This project demonstrates core Flutter internals, including widget rebuilding, state handling, and maintaining UI consistency using Keys in dynamic lists.
+
+---
+
 # ## Oreilly : Task 5: (Meal App)
 
 ## Overview
