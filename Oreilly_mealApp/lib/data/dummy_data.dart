@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:meal_app/models/category.dart';
 import 'package:meal_app/models/meal.dart';
 
-// Constants in Dart should be written in lowerCamelcase.
 const availableCategories = [
   Category(id: 'c1', title: 'Italian', color: Colors.purple),
   Category(id: 'c2', title: 'Quick & Easy', color: Colors.red),
@@ -25,7 +24,7 @@ const dummyMeals = [
     affordability: Affordability.affordable,
     complexity: Complexity.simple,
     imageUrl:
-        'https://upload.wikimedia.org/wikipedia/commons/thumb/2/20/Spaghetti_Bolognese_mit_Parmesan_oder_Grana_Padano.jpg/800px-Spaghetti_Bolognese_mit_Parmesan_oder_Grana_Padano.jpg',
+        'https://cdn.pixabay.com/photo/2018/07/18/19/12/pasta-3547078_1280.jpg',
     duration: 20,
     ingredients: [
       '4 Tomatoes',
@@ -124,13 +123,13 @@ const dummyMeals = [
       'Lemon Slices',
     ],
     steps: [
-      'Tenderize the veal to about 2–4mm, and salt on both sides.',
+      'Tenderize the veal to about 2 to 4mm, and salt on both sides.',
       'On a flat plate, stir the eggs briefly with a fork.',
       'Lightly coat the cutlets in flour then dip into the egg, and finally, coat in breadcrumbs.',
       'Heat the butter and oil in a large pan (allow the fat to get very hot) and fry the schnitzels until golden brown on both sides.',
-      'Make sure to toss the pan regularly so that the schnitzels are surrounded by oil and the crumbing becomes ‘fluffy’.',
+      'Make sure to toss the pan regularly so that the schnitzels are surrounded by oil and the crumbing becomes fluffy.',
       'Remove, and drain on kitchen paper. Fry the parsley in the remaining oil and drain.',
-      'Place the schnitzels on awarmed plate and serve garnishedwith parsley and slices of lemon.',
+      'Place the schnitzels on a warmed plate and serve garnished with parsley and slices of lemon.',
     ],
     isGlutenFree: false,
     isVegan: false,
@@ -139,11 +138,7 @@ const dummyMeals = [
   ),
   Meal(
     id: 'm5',
-    categories: [
-      'c2'
-          'c5',
-      'c10',
-    ],
+    categories: ['c2', 'c5', 'c10'],
     title: 'Salad with Smoked Salmon',
     affordability: Affordability.luxurious,
     complexity: Complexity.simple,
@@ -164,7 +159,7 @@ const dummyMeals = [
     steps: [
       'Wash and cut salad and herbs',
       'Dice the salmon',
-      'Process mustard, vinegar and olive oil into a dessing',
+      'Process mustard, vinegar and olive oil into a dressing',
       'Prepare the salad',
       'Add salmon cubes and dressing',
     ],
@@ -197,7 +192,7 @@ const dummyMeals = [
       'Add 2 tablespoons of yoghurt',
       'Stir gelatin under remaining yoghurt',
       'Cool everything down in the refrigerator',
-      'Whip the cream and lift it under die orange mass',
+      'Whip the cream and lift it under the orange mass',
       'Cool down again for at least 4 hours',
       'Serve with orange peel',
     ],
@@ -301,12 +296,12 @@ const dummyMeals = [
       'Leave bowl above the hot (not simmering) water to keep chocolate warm while you whip the egg whites.',
       'Place 2 egg whites in a mixing bowl; add cream of tartar. Whisk until mixture begins to thicken and a drizzle from the whisk stays on the surface about 1 second before disappearing into the mix.',
       'Add 1/3 of sugar and whisk in. Whisk in a bit more sugar about 15 seconds.',
-      'whisk in the rest of the sugar. Continue whisking until mixture is about as thick as shaving cream and holds soft peaks, 3 to 5 minutes.',
+      'Whisk in the rest of the sugar. Continue whisking until mixture is about as thick as shaving cream and holds soft peaks, 3 to 5 minutes.',
       'Transfer a little less than half of egg whites to chocolate.',
       'Mix until egg whites are thoroughly incorporated into the chocolate.',
       'Add the rest of the egg whites; gently fold into the chocolate with a spatula, lifting from the bottom and folding over.',
       'Stop mixing after the egg white disappears. Divide mixture between 2 prepared ramekins. Place ramekins on prepared baking sheet.',
-      'Bake in preheated oven until scuffles are puffed and have risen above the top of the rims, 12 to 15 minutes.',
+      'Bake in preheated oven until souffles are puffed and have risen above the top of the rims, 12 to 15 minutes.',
     ],
     isGlutenFree: true,
     isVegan: false,

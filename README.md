@@ -314,4 +314,43 @@ lib/
 ## Conclusion
 This project demonstrates Flutter UI design, state management, and building a responsive real-world application.
 
+---
+
+# ## Oreilly : Task 5: (Meal App)
+
+## Overview
+A Flutter-based meal browsing application that allows users to explore meals by category, apply dietary filters, and manage favorites using efficient state management.
+
+## Features
+- Browse meals by category using an animated grid  
+- View detailed meal information including ingredients and steps  
+- Mark and unmark meals as favorites  
+- Apply dietary filters (gluten-free, lactose-free, vegetarian, vegan)  
+- Smooth animations using Hero and AnimatedSwitcher  
+- Navigation with bottom navigation bar and drawer  
+
+## Tech Stack
+- Flutter (UI Framework)  
+- Dart (Programming Language)  
+- flutter_riverpod (State management)  
+- google_fonts (Typography)  
+- transparent_image (Image placeholder)  
+
+## Project Structure
+lib/
+├── data/
+├── models/
+├── providers/
+├── screens/
+└── widgets/
+
+## How to Run
+1. Run `flutter pub get`  
+2. Connect a device/emulator  
+3. Run `flutter run`  
+
+## Conclusion
+This project demonstrates advanced Flutter concepts including Riverpod state management, navigation, animations, and building a structured multi-screen application.
+
+
 *This repository will continue to be updated with weekly tasks throughout the internship.*
