@@ -1,6 +1,7 @@
 import 'dart:io';
 // ignore: unused_import
 import 'dart:typed_data';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:file_picker/file_picker.dart';
@@ -14,10 +15,11 @@ import 'product_storage_service.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
+  await dotenv.load(fileName: ".env");
+
   await Supabase.initialize(
-    url: 'https://zebeimpvhckbylipxiat.supabase.co',
-    anonKey:
-        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InplYmVpbXB2aGNrYnlsaXB4aWF0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQyMzYxNTAsImV4cCI6MjA4OTgxMjE1MH0.B2tlP5L2FtJVo7qGfUbcDnyNOOL2Vnrw3wqClKvQ_PM',
+    url: dotenv.env['SUPABASE_URL']!,
+    anonKey: dotenv.env['SUPABASE_ANON_KEY']!,
   );
 
   runApp(const MyApp());

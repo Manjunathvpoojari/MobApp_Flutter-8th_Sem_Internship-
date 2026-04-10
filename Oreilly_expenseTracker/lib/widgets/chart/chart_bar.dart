@@ -22,7 +22,7 @@ class ChartBar extends StatelessWidget {
               shape: BoxShape.rectangle,
               color: isDarkMode
                   ? Theme.of(context).colorScheme.secondary
-                  : Theme.of(context).colorScheme.primary.withOpacity(0.65),
+                  : Theme.of(context).colorScheme.primary.withOpacity(0.85),
               borderRadius: const BorderRadius.vertical(
                 top: Radius.circular(6),
               ),

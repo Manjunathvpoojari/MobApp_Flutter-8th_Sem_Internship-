@@ -26,12 +26,15 @@ class ExpensesItem extends StatelessWidget {
                     Icon(
                       categoryIcons[expense.category],
                       size: 14,
-                      color: Colors.grey[600],
+                      color: const Color.fromARGB(255, 34, 31, 31),
                     ),
                     const SizedBox(width: 4),
                     Text(
                       expense.formattedDate,
-                      style: const TextStyle(fontSize: 12, color: Colors.grey),
+                      style: const TextStyle(
+                        fontSize: 12,
+                        color: Color.fromARGB(255, 26, 24, 24),
+                      ),
                     ),
                   ],
                 ),
