@@ -18,7 +18,8 @@ class GroceryList extends StatefulWidget {
 
 class _GroceryListState extends State<GroceryList> {
   List<GroceryItem> _groceryItems = [];
-  late Future<List<GroceryItem>> _loadedItems;
+  // ✅ Changed to Future<void> — _groceryItems is now the single source of truth
+  late Future<void> _loadedItems;
   // ignore: unused_field
   String? _error;
 
@@ -28,7 +29,7 @@ class _GroceryListState extends State<GroceryList> {
     _loadedItems = _loadItems();
   }
 
-  Future<List<GroceryItem>> _loadItems() async {
+  Future<void> _loadItems() async {
     final url = Uri.https(
       'shopping-list-f31c8-default-rtdb.firebaseio.com',
       'shopping-list.json',
@@ -41,7 +42,11 @@ class _GroceryListState extends State<GroceryList> {
     }
 
     if (response.body == 'null') {
-      return [];
+      // ✅ Set empty list explicitly
+      setState(() {
+        _groceryItems = [];
+      });
+      return;
     }
 
     final Map<String, dynamic> listData = json.decode(response.body);
@@ -61,7 +66,11 @@ class _GroceryListState extends State<GroceryList> {
         ),
       );
     }
-    return loadedItems;
+
+    // ✅ Populate _groceryItems so ListView always reads from here
+    setState(() {
+      _groceryItems = loadedItems;
+    });
   }
 
   void _addItem() async {
@@ -73,6 +82,7 @@ class _GroceryListState extends State<GroceryList> {
       return;
     }
 
+    // ✅ This now actually updates the visible list
     setState(() {
       _groceryItems.add(newItem);
     });
@@ -80,6 +90,8 @@ class _GroceryListState extends State<GroceryList> {
 
   void _removeItem(GroceryItem item) async {
     final index = _groceryItems.indexOf(item);
+
+    // ✅ Removes from _groceryItems — same list the ListView reads
     setState(() {
       _groceryItems.remove(item);
     });
@@ -92,7 +104,6 @@ class _GroceryListState extends State<GroceryList> {
     final response = await http.delete(url);
 
     if (response.statusCode >= 400) {
-      // Optional: Show error message
       setState(() {
         _groceryItems.insert(index, item);
       });
@@ -117,25 +128,26 @@ class _GroceryListState extends State<GroceryList> {
             return Center(child: Text(snapshot.error.toString()));
           }
 
-          if (snapshot.data!.isEmpty) {
+          // ✅ Use _groceryItems here — reflects adds and deletes live
+          if (_groceryItems.isEmpty) {
             return const Center(child: Text('No items added yet.'));
           }
 
           return ListView.builder(
-            itemCount: snapshot.data!.length,
+            itemCount: _groceryItems.length,
             itemBuilder: (ctx, index) => Dismissible(
               onDismissed: (direction) {
-                _removeItem(snapshot.data![index]);
+                _removeItem(_groceryItems[index]);
               },
-              key: ValueKey(snapshot.data![index].id),
+              key: ValueKey(_groceryItems[index].id),
               child: ListTile(
-                title: Text(snapshot.data![index].name),
+                title: Text(_groceryItems[index].name),
                 leading: Container(
                   width: 24,
                   height: 24,
-                  color: snapshot.data![index].category.color,
+                  color: _groceryItems[index].category.color,
                 ),
-                trailing: Text(snapshot.data![index].quantity.toString()),
+                trailing: Text(_groceryItems[index].quantity.toString()),
               ),
             ),
           );

@@ -394,5 +394,81 @@ lib/
 ## Conclusion
 This project demonstrates advanced Flutter concepts including Riverpod state management, navigation, animations, and building a structured multi-screen application.
 
+---
+
+# ## Oreilly : Task 6: (Shopping List App)
+
+## Overview
+A Flutter-based grocery management application integrated with Firebase Realtime Database using REST API. The app allows users to add, view, and delete shopping items with proper state handling and network operations.
+
+## Features
+- Load grocery items from Firebase  
+- Add new items with form validation  
+- Swipe-to-delete with rollback on failure  
+- Category-based item organization with colors  
+- Loading, empty state, and error handling  
+- Smooth navigation between screens  
+
+## Tech Stack
+- Flutter (UI Framework)  
+- Dart (Programming Language)  
+- Firebase Realtime Database  
+- REST API  
+- http package (Network requests)  
+
+## Project Structure
+lib/
+├── data/
+├── models/
+├── widgets/
+└── main.dart
+
+## How to Run
+1. Run `flutter pub get`  
+2. Connect a device/emulator  
+3. Run `flutter run`  
+
+## Conclusion
+This project demonstrates Flutter networking, Firebase integration, form handling, async programming, and building a real-world CRUD application.
+
+---
+
+# ## Oreilly : Task 7: (Favorite Places App)
+
+## Overview
+A Flutter-based location saving application that allows users to store favorite places with images, GPS coordinates, and Google Maps integration. Data is stored locally using SQLite with Riverpod for state management.
+
+## Features
+- Add places with title, photo, and location  
+- Capture images using device camera  
+- Select location using GPS or map picker  
+- View saved places with image and map preview  
+- Persistent local storage using SQLite  
+- Manage app state using Riverpod  
+
+## Tech Stack
+- Flutter (UI Framework)  
+- Dart (Programming Language)  
+- Riverpod (State management)  
+- SQLite (Local database)  
+- Google Maps API  
+- image_picker (Camera access)  
+- location (GPS access)  
+
+## Project Structure
+lib/
+├── models/
+├── providers/
+├── screens/
+├── widgets/
+└── main.dart
+
+## How to Run
+1. Run `flutter pub get`  
+2. Connect a device/emulator  
+3. Run `flutter run`  
+
+## Conclusion
+This project demonstrates Flutter local storage, device features integration, Google Maps usage, state management, and building a real-world location-based application.
 
 *This repository will continue to be updated with weekly tasks throughout the internship.*
