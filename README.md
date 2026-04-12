@@ -471,4 +471,42 @@ lib/
 ## Conclusion
 This project demonstrates Flutter local storage, device features integration, Google Maps usage, state management, and building a real-world location-based application.
 
+---
+
+# ## Oreilly Internship : Task 8 : (FlutterChat – Real-Time Chat App)
+
+## Overview
+A Flutter-based real-time chat application developed using Firebase services. The app allows users to authenticate, send instant messages, and receive live updates through Cloud Firestore streams.
+
+## Features
+- User signup and login with Email & Password  
+- Real-time messaging with Cloud Firestore  
+- Live chat updates using streams  
+- Auto-generated user avatars  
+- Push notifications with Firebase Cloud Messaging  
+- Clean chat bubble interface for conversations  
+
+## Tech Stack
+- Flutter (UI Framework)  
+- Dart (Programming Language)  
+- Firebase Auth  
+- Cloud Firestore  
+- Firebase Cloud Messaging  
+
+## Project Structure
+lib/
+├── screens/
+├── widgets/
+├── firebase_options.dart
+└── main.dart
+
+## How to Run
+1. Run `flutter pub get`  
+2. Configure Firebase project  
+3. Connect a device/emulator  
+4. Run `flutter run`  
+
+## Conclusion
+This project demonstrates Flutter and Firebase integration, authentication, real-time database handling, push notifications, and building a modern chat application.
+
 *This repository will continue to be updated with weekly tasks throughout the internship.*
