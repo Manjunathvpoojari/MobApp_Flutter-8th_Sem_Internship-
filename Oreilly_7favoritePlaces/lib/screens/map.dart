@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
-
+import 'package:flutter_map/flutter_map.dart';
+import 'package:latlong2/latlong.dart';
 import 'package:favorite_places/models/place.dart';
 
 class MapScreen extends StatefulWidget {
@@ -18,9 +18,7 @@ class MapScreen extends StatefulWidget {
   final bool isSelecting;
 
   @override
-  State<MapScreen> createState() {
-    return _MapScreenState();
-  }
+  State<MapScreen> createState() => _MapScreenState();
 }
 
 class _MapScreenState extends State<MapScreen> {
@@ -43,31 +41,45 @@ class _MapScreenState extends State<MapScreen> {
             ),
         ],
       ),
-      body: GoogleMap(
-        onTap: !widget.isSelecting
-            ? null
-            : (position) {
-                setState(() {
-                  _pickedLocation = position;
-                });
-              },
-        initialCameraPosition: CameraPosition(
-          target: LatLng(widget.location.latitude, widget.location.longitude),
-          zoom: 16,
+      body: FlutterMap(
+        options: MapOptions(
+          initialCenter: LatLng(
+            widget.location.latitude,
+            widget.location.longitude,
+          ),
+          initialZoom: 16,
+          onTap: !widget.isSelecting
+              ? null
+              : (tapPosition, point) {
+                  setState(() {
+                    _pickedLocation = point;
+                  });
+                },
         ),
-        markers: (_pickedLocation == null && widget.isSelecting)
-            ? {}
-            : {
+        children: [
+          TileLayer(
+            urlTemplate: 'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
+            userAgentPackageName: 'com.example.favorite_places',
+          ),
+          if (_pickedLocation != null || !widget.isSelecting)
+            MarkerLayer(
+              markers: [
                 Marker(
-                  markerId: const MarkerId('m1'),
-                  position:
+                  point:
                       _pickedLocation ??
                       LatLng(
                         widget.location.latitude,
                         widget.location.longitude,
                       ),
+                  child: const Icon(
+                    Icons.location_pin,
+                    color: Colors.red,
+                    size: 40,
+                  ),
                 ),
-              },
+              ],
+            ),
+        ],
       ),
     );
   }

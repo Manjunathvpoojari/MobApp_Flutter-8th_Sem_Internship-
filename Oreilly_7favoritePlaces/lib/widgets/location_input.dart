@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:latlong2/latlong.dart';
 import 'package:location/location.dart';
 import 'package:http/http.dart' as http;
 
@@ -24,21 +24,22 @@ class _LocationInputState extends State<LocationInput> {
   var _isGettingLocation = false;
 
   String get locationImage {
-    if (_pickedLocation == null) {
-      return '';
-    }
+    if (_pickedLocation == null) return '';
     final lat = _pickedLocation!.latitude;
     final lng = _pickedLocation!.longitude;
-    return 'https://maps.googleapis.com/maps/api/staticmap?center=$lat,$lng=&zoom=16&size=600x300&maptype=roadmap&markers=color:red%7Clabel:A%7C$lat,$lng&key=AIzaSyDLcwxUggpPZo8lcbH0TB4Crq5SJjtj4ag';
+    return 'https://staticmap.openstreetmap.de/staticmap.php?center=$lat,$lng&zoom=16&size=600x300&markers=$lat,$lng,red-pushpin';
   }
 
   Future<void> _savePlace(double latitude, double longitude) async {
     final url = Uri.parse(
-      'https://maps.googleapis.com/maps/api/geocode/json?latlng=$latitude,$longitude&key=AIzaSyDLcwxUggpPZo8lcbH0TB4Crq5SJjtj4ag',
+      'https://nominatim.openstreetmap.org/reverse?lat=$latitude&lon=$longitude&format=json',
     );
-    final response = await http.get(url);
+    final response = await http.get(
+      url,
+      headers: {'User-Agent': 'FavoritePlacesApp'},
+    );
     final resData = json.decode(response.body);
-    final address = resData['results'][0]['formatted_address'];
+    final address = resData['display_name'];
 
     setState(() {
       _pickedLocation = PlaceLocation(
@@ -62,17 +63,13 @@ class _LocationInputState extends State<LocationInput> {
     serviceEnabled = await location.serviceEnabled();
     if (!serviceEnabled) {
       serviceEnabled = await location.requestService();
-      if (!serviceEnabled) {
-        return;
-      }
+      if (!serviceEnabled) return;
     }
 
     permissionGranted = await location.hasPermission();
     if (permissionGranted == PermissionStatus.denied) {
       permissionGranted = await location.requestPermission();
-      if (permissionGranted != PermissionStatus.granted) {
-        return;
-      }
+      if (permissionGranted != PermissionStatus.granted) return;
     }
 
     setState(() {
@@ -83,9 +80,7 @@ class _LocationInputState extends State<LocationInput> {
     final lat = locationData.latitude;
     final lng = locationData.longitude;
 
-    if (lat == null || lng == null) {
-      return;
-    }
+    if (lat == null || lng == null) return;
 
     _savePlace(lat, lng);
   }
@@ -95,9 +90,7 @@ class _LocationInputState extends State<LocationInput> {
       context,
     ).push<LatLng>(MaterialPageRoute(builder: (ctx) => const MapScreen()));
 
-    if (pickedLocation == null) {
-      return;
-    }
+    if (pickedLocation == null) return;
 
     _savePlace(pickedLocation.latitude, pickedLocation.longitude);
   }
@@ -108,7 +101,7 @@ class _LocationInputState extends State<LocationInput> {
       'No location chosen',
       textAlign: TextAlign.center,
       style: Theme.of(context).textTheme.bodyLarge!.copyWith(
-        color: Theme.of(context).colorScheme.onBackground,
+        color: Theme.of(context).colorScheme.onSurface,
       ),
     );
 
